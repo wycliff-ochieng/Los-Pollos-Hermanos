@@ -1,11 +1,10 @@
 package data
 
-import "database/sql"
-
-type Postgres struct {
-	db *sql.DB
-}
-
-func NewPostgres(db *sql.DB) *Postgres {
-	return &Postgres{}
+type Storage interface {
+	GetAllCharacters() ([]model.Character, error)
+	GetCharacterByName(name string) error
+	GetRandomQuotes() ([]model.Quotes, error)
+	GetAllConnections()
+	GetCharacterIDByName(name string) (map[int]string, error)
+	GetCharacterNameByID(ID int) (map[string]int, error)
 }
