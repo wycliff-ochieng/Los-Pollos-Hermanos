@@ -1,10 +1,19 @@
 package data
 
-type Storage interface {
-	GetAllCharacters() ([]model.Character, error)
-	GetCharacterByName(name string) error
-	GetRandomQuotes() ([]model.Quotes, error)
-	GetAllConnections()
-	GetCharacterIDByName(name string) (map[int]string, error)
-	GetCharacterNameByID(ID int) (map[string]int, error)
+import data "github/wycliff-ochieng/los_pollos_hermanos/model"
+
+type BreakingBadData struct {
+	strg Storage
+}
+
+func NewBreakingBadData(strg Storage) *BreakingBadData {
+	return &BreakingBadData{
+		strg: strg,
+	}
+}
+
+func (b BreakingBadData) GetAllCharacters() ([]data.Characters, error) {
+	query := `SELECT * FROM characters`
+
+	b.strg.QueryContext(ctx, query).Scan()
 }
